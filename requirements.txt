@@ -1,0 +1,14 @@
+Flask
+Flask-SQLAlchemy
+python-dotenv
+pytest
+gunicorn
+flasgger
+psycopg2-binary
+pdfplumber
+pytesseract
+opencv-python
+pyzbar
+Pillow
+PyJWT
+flask-cors
