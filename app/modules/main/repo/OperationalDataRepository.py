@@ -2,7 +2,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import and_
 from app.modules.main.models.OperationalData import OperationalData 
 from app.db.db import db 
-from sqlalchemy import cast, Boolean
+from sqlalchemy import cast, Boolean,Integer
 
 class OperationalDataRepository:
 
@@ -46,5 +46,22 @@ class OperationalDataRepository:
     def getLatestRecord():
         try:
             return OperationalData.query.order_by(OperationalData.created_at.desc()).first()
+        except SQLAlchemyError as e:
+            raise e
+        
+    @staticmethod
+    def getDistinctAcNo():
+        try:
+            return OperationalData.query.with_entities(
+                cast(OperationalData.ac_no, Integer).label('ac_no_numeric')
+            ).distinct().order_by('ac_no_numeric').all()
+        except SQLAlchemyError as e:
+            raise e
+        
+    @staticmethod
+    def get_all_voter_data_by_ac_no_sl_no():
+        try:
+            # Retrieve all rows, ordered by ac_no and sl_no
+            return OperationalData.query.order_by(OperationalData.ac_no, OperationalData.sl_no).all()
         except SQLAlchemyError as e:
             raise e

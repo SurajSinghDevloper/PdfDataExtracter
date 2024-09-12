@@ -70,7 +70,7 @@ class VoterPdfData_Service:
             'PartNo': None,
             'SlNo': None,
             'uploadedBy':None,
-            # 'LotNo':None
+            'LotNo':None
         }
         count =0
         for line in lines:
@@ -114,19 +114,19 @@ class VoterPdfData_Service:
     @staticmethod
     def extract_filename_components(filename):
         components = filename.split('_')
-        print("COMPONENT ARE =====================> ",components)
+        # print("COMPONENT ARE =====================> ",components)
         statecode = components[0][1:]
         acNo = components[1]
         partNo = components[2]
         slNo = components[3]
-        print("STATE CODE => ",statecode," AC NO => ",acNo,"  PART NO => ",partNo," SL NO => ",slNo)
+        # print("STATE CODE => ",statecode," AC NO => ",acNo,"  PART NO => ",partNo," SL NO => ",slNo)
 
         return statecode, acNo, partNo, slNo
     
 
     def process_pdf_list(self, pdf_file,uploader_id,lot_no):
         filename = pdf_file.filename
-        print("NAME OF FILE ========> ",filename)
+        # print("NAME OF FILE ========> ",filename)
         data = []
         statecode, acNo, partNo, slNo = self.extract_filename_components(filename)
 
@@ -159,7 +159,7 @@ class VoterPdfData_Service:
                 })
                 parsed_data.update({
                     'uploadedBy': uploader_id,
-                    # 'LotNo': 0
+                    'LotNo': lot_no
                 })
                 data.append(parsed_data)
         self.save_data(data)  
@@ -191,7 +191,7 @@ class VoterPdfData_Service:
                     part_no=record['PartNo'],
                     sl_no=record['SlNo'],
                     filename=record['Filename'],
-                    # lot_no=404,
+                    lot_no=record['LotNo'],
                     uploadedBy=record['uploadedBy']
                 )
                 db.session.add(new_voter_pdf_data)

@@ -30,7 +30,7 @@ class OperationalData(db.Model):
     printedBy = db.Column(db.Integer)
     # page_no=db.Column(db.Integer)
     # sticker_no = db.Column(db.Integer,default=0)
-    # lot_no=db.Column(db.String(255),default=0)
+    lot_no=db.Column(db.String(255),default=0)
     printCount = db.Column(db.Integer,default=False)
     
     
@@ -69,6 +69,6 @@ class OperationalData(db.Model):
             'printedBy': self.printedBy,
             # 'page_no':self.page_no,
             # 'sticker_no':self.sticker_no,
-            # 'lot_no':self.lot_no,
+            'lot_no':self.lot_no,
             'printCount': self.printCount
         }

@@ -7,7 +7,7 @@ class OperationalData_Service:
     @staticmethod
     def create_operational_data(pdfData):
         try:
-            print("FROM OPERATIONAL DATA ======",pdfData)
+            # print("FROM OPERATIONAL DATA ======",pdfData)
             operational_data = OperationalData(
                 date=pdfData.created_at, 
                 id=pdfData.id, 
@@ -31,8 +31,7 @@ class OperationalData_Service:
                 filename=pdfData.filename,
                 uploadedBy=pdfData.uploadedBy,
                 created_at=pdfData.created_at,
-                # lot_no=pdfData.lot_no,
-                # lot_no=0,
+                lot_no=pdfData.lot_no,
                 isPrinted=False,
                 printedBy=0,
                 printCount=0,
@@ -81,6 +80,10 @@ class OperationalData_Service:
             raise e
     
     @staticmethod
+    def get_distinct_ac():
+        return OperationalDataRepository.getDistinctAcNo()
+    
+    @staticmethod
     def get_count_of_details(type):
         found_data=OperationalDataRepository.getLatestRecord()
         pageNum=0
@@ -95,3 +98,7 @@ class OperationalData_Service:
         if type=='lotNo':
             lotNum=found_data.lot_no
             return lotNum
+
+    @staticmethod
+    def get_all_data_by_ac_and_sl_no():
+        return OperationalDataRepository.get_all_voter_data_by_ac_no_sl_no()

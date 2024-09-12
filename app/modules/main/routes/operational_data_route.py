@@ -28,3 +28,15 @@ def get_data_by_created_at_range():
 def mark_printStatus():
     operationalDataContoller = OperationalDataController()
     return operationalDataContoller.mark_data_printed()
+
+@operational_data_bp.route('/operational-data/ac-no', methods=['GET'])
+@token_required
+def distinct_ac():
+    operationalDataContoller = OperationalDataController()
+    return operationalDataContoller.get_distinct_acNo()
+
+@operational_data_bp.route('/operational-data/all-data', methods=['GET'])
+@token_required
+def get_all_operational_data():
+    operationalDataContoller = OperationalDataController()
+    return operationalDataContoller.get_data_by_Sl_Ac()

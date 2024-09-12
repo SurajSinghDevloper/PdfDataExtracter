@@ -44,4 +44,18 @@ class OperationalDataController:
         except Exception as e:
             return jsonify({"error": str(e)}), 500
            
-            
+    def get_distinct_acNo(self):
+        try:
+            data = OperationalData_Service.get_distinct_ac()
+            # Manually create a dictionary for serialization
+            result = [{'ac_no': item.ac_no_numeric} for item in data]
+            return jsonify(result), 200
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+
+    def get_data_by_Sl_Ac(self):
+        try:
+            data = OperationalData_Service.get_all_data_by_ac_and_sl_no()
+            return jsonify([item.serialize() for item in data]) ,200
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
